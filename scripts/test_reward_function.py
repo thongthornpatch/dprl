@@ -2,7 +2,6 @@
 """
 Test the reward function with real NeoCoder data.
 
-This validates that Phase 3 (reward function) works end-to-end.
 """
 
 import sys
@@ -25,9 +24,9 @@ def test_reward_with_real_data():
     try:
         loader = NeoCoderLoader()
         problems = loader.load()
-        print(f"\n✅ Loaded {len(problems)} NeoCoder problems")
+        print(f"\nLoaded {len(problems)} NeoCoder problems")
     except FileNotFoundError:
-        print("\n❌ NeoCoder dataset not found. Run: python scripts/download_neocoder.py")
+        print("\nNeoCoder dataset not found. Run: python scripts/download_neocoder.py")
         return False
 
     # Initialize simplified reward function
@@ -58,7 +57,7 @@ def test_reward_with_real_data():
         example_code = round1['example_code']
         denied_techniques = round1['constraints']
     else:
-        print("\n⚠️  Problem only has 1 round")
+        print("\nProblem only has 1 round")
         example_code = round0['example_code']
         denied_techniques = []
 
@@ -75,12 +74,12 @@ def test_reward_with_real_data():
         denied_techniques=denied_techniques,
     )
 
-    print(f"\n📊 Reward Results:")
-    print(f"  Total Reward: {result['total_reward']:.3f}")
-    print(f"  Correctness: {result['correctness_score']:.3f}")
-    print(f"  Denial Penalty: {result['denial_penalty']:.3f}")
-    print(f"  Num Violations: {result['num_violations']}")
-    print(f"  Success: {result['success']}")
+    print(f"\nReward Results:")
+    print(f"Total Reward: {result['total_reward']:.3f}")
+    print(f"Correctness: {result['correctness_score']:.3f}")
+    print(f"Denial Penalty: {result['denial_penalty']:.3f}")
+    print(f"Num Violations: {result['num_violations']}")
+    print(f"Success: {result['success']}")
 
     print(f"\n  Execution:")
     print(f"    Passed: {result['execution_result']['num_passed']}/{result['execution_result']['total']}")
@@ -179,7 +178,7 @@ def main():
         try:
             results[test_name] = test_func()
         except Exception as e:
-            print(f"\n❌ {test_name} crashed: {e}")
+            print(f"\n{test_name} crashed: {e}")
             import traceback
             traceback.print_exc()
             results[test_name] = False
@@ -193,19 +192,19 @@ def main():
     total = len(results)
 
     for test_name, passed_test in results.items():
-        status = "✅ PASS" if passed_test else "❌ FAIL"
+        status = "PASS" if passed_test else "FAIL"
         print(f"{status}  {test_name}")
 
     print(f"\nTotal: {passed}/{total} tests passed")
 
     if passed == total:
-        print("\n🎉 All tests passed! Phase 3 is complete.")
+        print("\nAll tests passed! Phase 3 is complete.")
         print("\nNext steps:")
         print("  1. Implement GRPO training loop (Phase 4)")
         print("  2. Create training scripts for NSCC")
         return 0
     else:
-        print("\n⚠️  Some tests failed.")
+        print("\nSome tests failed.")
         return 1
 
 
