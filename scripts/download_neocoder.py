@@ -33,7 +33,7 @@ def main():
 
     # Check if already downloaded
     if neocoder_dir.exists():
-        print(f"\n✅ NeoCoder repository already exists at: {neocoder_dir}")
+        print(f"\nNeoCoder repository already exists at: {neocoder_dir}")
         print("\nTo re-download, delete the directory first:")
         print(f"  rm -rf {neocoder_dir}")
         response = input("\nContinue anyway and verify dataset? (y/n): ")
@@ -53,16 +53,16 @@ def main():
                 capture_output=True,
                 text=True
             )
-            print("✅ Repository cloned successfully!")
+            print("Repository cloned successfully!")
         except subprocess.CalledProcessError as e:
-            print(f"❌ Error cloning repository: {e.stderr}")
+            print(f"Error cloning repository: {e.stderr}")
             return 1
         except FileNotFoundError:
-            print("❌ Error: git not found. Please install git first.")
+            print("Error: git not found. Please install git first.")
             return 1
 
     # Verify dataset files
-    print("\n🔍 Verifying dataset files...")
+    print("\nVerifying dataset files...")
 
     required_files = [
         "datasets/CodeForce/NeoCoder/NeoCoder.json",
@@ -76,17 +76,17 @@ def main():
         full_path = neocoder_dir / file_path
         if full_path.exists():
             size_mb = full_path.stat().st_size / (1024 * 1024)
-            print(f"  ✅ {file_path} ({size_mb:.1f} MB)")
+            print(f"{file_path} ({size_mb:.1f} MB)")
         else:
-            print(f"  ❌ {file_path} (missing)")
+            print(f"{file_path} (missing)")
             all_exist = False
 
     if not all_exist:
-        print("\n❌ Some required files are missing!")
+        print("\nSome required files are missing!")
         return 1
 
     # Run sanity checks
-    print("\n🧪 Running sanity checks...")
+    print("\nRunning sanity checks...")
 
     try:
         import json
@@ -96,14 +96,14 @@ def main():
         with open(neocoder_file) as f:
             data = json.load(f)
 
-        print(f"  ✅ NeoCoder.json: {len(data)} problems")
+        print(f"NeoCoder.json: {len(data)} problems")
 
         # Check test cases
         test_cases_file = neocoder_dir / "datasets/CodeForce/NeoCoder/test_cases_annotated.json"
         with open(test_cases_file) as f:
             test_cases = json.load(f)
 
-        print(f"  ✅ test_cases_annotated.json: {len(test_cases)} test case entries")
+        print(f"test_cases_annotated.json: {len(test_cases)} test case entries")
 
         # Verify data structure
         if len(data) > 0:
@@ -111,15 +111,15 @@ def main():
             assert 'problem_id' in first_problem
             assert 'problem_statements' in first_problem
             assert 'constraints_list' in first_problem
-            print(f"  ✅ Data structure valid")
+            print(f"Data structure valid")
 
     except Exception as e:
-        print(f"  ❌ Sanity check failed: {e}")
+        print(f"Sanity check failed: {e}")
         return 1
 
     # Success!
     print("\n" + "="*80)
-    print("✅ NeoCoder dataset is ready!")
+    print("NeoCoder dataset is ready!")
     print("="*80)
 
     print("\nNext steps:")
