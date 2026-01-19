@@ -1,6 +1,6 @@
 # Denial Prompting for RL training
 
-## 📁 Project Structure
+## Project Structure
 ```
 denial_prompting_RL/
 ├── configs/                 
