@@ -42,8 +42,7 @@ def main():
             return 0
     else:
         # Clone repository
-        print("\n📥 Cloning NeoCoder repository...")
-        print("This may take 1-2 minutes...")
+        print("\nCloning NeoCoder repository...")
 
         try:
             subprocess.run(
@@ -116,17 +115,6 @@ def main():
     except Exception as e:
         print(f"Sanity check failed: {e}")
         return 1
-
-    # Success!
-    print("\n" + "="*80)
-    print("NeoCoder dataset is ready!")
-    print("="*80)
-
-    print("\nNext steps:")
-    print("  1. Test the data loader:")
-    print("     python src/data/neocoder_loader.py")
-    print("\n  2. Test the full pipeline:")
-    print("     python scripts/test_data_pipeline.py")
 
     return 0
 
