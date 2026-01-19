@@ -91,15 +91,15 @@ if __name__ == "__main__":
     try:
         config = load_config('configs/config_laptop.yaml')
         print_config(config)
-        print("\n✅ Laptop config loaded successfully!\n")
+        print("\nLaptop config loaded successfully\n")
     except Exception as e:
-        print(f"❌ Error loading laptop config: {e}\n")
+        print(f"Error loading laptop config: {e}\n")
 
     # Try NSCC config
     print("Testing NSCC config...")
     try:
         config = load_config('configs/config_nscc.yaml')
         print_config(config)
-        print("\n✅ NSCC config loaded successfully!\n")
+        print("\nNSCC config loaded successfully\n")
     except Exception as e:
-        print(f"❌ Error loading NSCC config: {e}\n")
+        print(f"Error loading NSCC config: {e}\n")
