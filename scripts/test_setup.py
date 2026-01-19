@@ -209,7 +209,7 @@ def main():
     print(f"\nTotal: {passed}/{total} tests passed")
 
     if passed == total:
-        print("\n🎉 All tests passed! Your setup is ready.")
+        print("\nAll tests passed. Setup is ready.")
         print("\nNext steps:")
         print("  1. Run: python scripts/download_neocoder.py (coming soon)")
         print("  2. Implement reward function")
