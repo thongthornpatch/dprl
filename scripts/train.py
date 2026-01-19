@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Main training script for Denial Prompting RL.
+Main training script for Denial Prompting RL
 
 Usage:
     python scripts/train.py --config configs/config_laptop.yaml
@@ -52,62 +52,62 @@ def main():
     print("="*80)
 
     # Load configuration
-    print("\n📋 Loading configuration...")
+    print("\nLoading configuration...")
     config = load_config(args.config)
-    print(f"✅ Config loaded")
-    print(f"  Model: {config['model']['name']}")
-    print(f"  Device: {config['model']['device']}")
-    print(f"  Training steps: {config['training']['num_steps']}")
-    print(f"  Batch size: {config['training']['batch_size']}")
-    print(f"  Group size: {config['training']['group_size']}")
+    print(f"Config loaded")
+    print(f"Model: {config['model']['name']}")
+    print(f"Device: {config['model']['device']}")
+    print(f"Training steps: {config['training']['num_steps']}")
+    print(f"Batch size: {config['training']['batch_size']}")
+    print(f"Group size: {config['training']['group_size']}")
 
     # Load dataset
-    print("\n📊 Loading NeoCoder dataset...")
+    print("\nLoading NeoCoder dataset...")
     try:
         loader = NeoCoderLoader()
         problems = loader.load()
         dataset = NeoCoderDataset(problems, config)
-        print(f"✅ Loaded {len(problems)} problems")
-        print(f"  Total rounds: {sum(len(p.rounds) for p in problems)}")
-        print(f"  Curriculum enabled: {config['curriculum']['enabled']}")
+        print(f"Loaded {len(problems)} problems")
+        print(f"Total rounds: {sum(len(p.rounds) for p in problems)}")
+        print(f"Curriculum enabled: {config['curriculum']['enabled']}")
     except FileNotFoundError as e:
-        print(f"❌ Error: NeoCoder dataset not found")
+        print(f"Error: NeoCoder dataset not found")
         print(f"   {e}")
         print("\nPlease download the dataset first:")
         print("   python scripts/download_neocoder.py")
         return 1
 
     # Initialize model
-    print("\n🤖 Initializing model...")
+    print("\nInitializing model...")
     model = ModelWrapper(
         model_name=config['model']['name'],
         device=config['model']['device'],
         max_length=config['model']['max_length'],
         torch_dtype=config['model'].get('torch_dtype', 'float32'),
     )
-    print(f"✅ Model loaded: {config['model']['name']}")
-    print(f"  Device: {model.device}")
-    print(f"  Parameters: {sum(p.numel() for p in model.model.parameters()):,}")
+    print(f"Model loaded: {config['model']['name']}")
+    print(f"Device: {model.device}")
+    print(f"Parameters: {sum(p.numel() for p in model.model.parameters()):,}")
 
     # Resume from checkpoint if specified
     if args.resume_from:
-        print(f"\n🔄 Resuming from checkpoint: {args.resume_from}")
+        print(f"\nResuming from checkpoint: {args.resume_from}")
         model.load(args.resume_from)
-        print("✅ Checkpoint loaded")
+        print("Checkpoint loaded")
 
     # Initialize reward function
-    print("\n🎯 Initializing reward function...")
+    print("\nInitializing reward function...")
     reward_fn = RewardFunction(
         correctness_weight=float(config['reward']['correctness_weight']),
         denial_penalty_weight=float(config['reward']['denial_penalty_weight']),
         timeout=int(config['reward']['timeout']),
     )
-    print("✅ Reward function ready")
-    print(f"  Correctness weight: {config['reward']['correctness_weight']}")
-    print(f"  Denial penalty weight: {config['reward']['denial_penalty_weight']}")
+    print("Reward function ready")
+    print(f"Correctness weight: {config['reward']['correctness_weight']}")
+    print(f"Denial penalty weight: {config['reward']['denial_penalty_weight']}")
 
     # Initialize trainer
-    print("\n🏋️  Initializing GRPO trainer...")
+    print("\nInitializing GRPO trainer...")
     trainer = GRPOTrainer(
         model=model,
         reward_fn=reward_fn,
@@ -115,7 +115,7 @@ def main():
         config=config,
         output_dir=args.output_dir,
     )
-    print("✅ Trainer initialized")
+    print("Trainer initialized")
 
     # Start training
     print("\n" + "="*80)
@@ -138,12 +138,12 @@ def main():
         return 0
 
     except KeyboardInterrupt:
-        print("\n\n⚠️  Training interrupted by user")
+        print("\n\nTraining interrupted by user")
         print(f"Outputs saved to: {args.output_dir}")
         return 1
 
     except Exception as e:
-        print(f"\n\n❌ Training failed with error:")
+        print(f"\n\nTraining failed with error:")
         print(f"   {e}")
         import traceback
         traceback.print_exc()

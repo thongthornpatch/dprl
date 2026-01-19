@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test the GRPO trainer to verify Phase 4 implementation.
+Test the GRPO trainer
 
 This creates a minimal dummy setup and runs a few training steps.
 """
@@ -47,7 +47,7 @@ def test_grpo_trainer():
     print("="*80)
 
     # Load config
-    print("\n📋 Loading config...")
+    print("\nLoading config...")
     config = load_config("configs/config_laptop.yaml")
 
     # Override for quick test
@@ -57,13 +57,13 @@ def test_grpo_trainer():
     config['training']['save_every'] = 10  # Don't save during test
     config['curriculum']['enabled'] = False  # Disable for simplicity
 
-    print(f"✅ Config loaded (modified for testing)")
-    print(f"  Steps: {config['training']['num_steps']}")
-    print(f"  Batch size: {config['training']['batch_size']}")
-    print(f"  Group size: {config['training']['group_size']}")
+    print(f"Config loaded (modified for testing)")
+    print(f"Steps: {config['training']['num_steps']}")
+    print(f"Batch size: {config['training']['batch_size']}")
+    print(f"Group size: {config['training']['group_size']}")
 
     # Create dummy dataset
-    print("\n📊 Creating dummy dataset...")
+    print("\nCreating dummy dataset...")
     dummy_problems = [
         DummyProblem("test_001", [(5, 6), (0, 1), (-1, 0)]),
         DummyProblem("test_002", [(10, 11), (2, 3)]),
@@ -73,48 +73,48 @@ def test_grpo_trainer():
     ]
 
     dataset = NeoCoderDataset(dummy_problems, config)
-    print(f"✅ Created dataset with {len(dummy_problems)} dummy problems")
+    print(f"Created dataset with {len(dummy_problems)} dummy problems")
 
     # Initialize model
-    print("\n🤖 Initializing model...")
+    print("\nInitializing model...")
     model = ModelWrapper(
         model_name=config['model']['name'],
         device=config['model']['device'],
         max_length=config['model']['max_length'],
     )
-    print(f"✅ Model loaded: {config['model']['name']}")
-    print(f"  Device: {model.device}")
+    print(f"Model loaded: {config['model']['name']}")
+    print(f"Device: {model.device}")
 
     # Test model generation
-    print("\n🧪 Testing model generation...")
+    print("\nTesting model generation...")
     test_prompt = "def solve(x):\n    # Return x + 1\n    "
     test_output = model.generate(test_prompt, max_new_tokens=50, num_return_sequences=1)
-    print(f"✅ Model generated {len(test_output)} solution(s)")
-    print(f"  Sample (first 100 chars): {test_output[0][:100]}...")
+    print(f"Model generated {len(test_output)} solution(s)")
+    print(f"Sample (first 100 chars): {test_output[0][:100]}...")
 
     # Initialize reward function
-    print("\n🎯 Initializing reward function...")
+    print("\nInitializing reward function...")
     reward_fn = RewardFunction(
         correctness_weight=config['reward']['correctness_weight'],
         denial_penalty_weight=config['reward']['denial_penalty_weight'],
         timeout=config['reward']['timeout'],
     )
-    print("✅ Reward function ready")
+    print("Reward function ready")
 
     # Test reward function
-    print("\n🧪 Testing reward function...")
+    print("\nTesting reward function...")
     test_code = "def solve(x):\n    return x + 1"
     test_result = reward_fn.compute_reward(
         generated_code=test_code,
         test_cases=[(5, 6), (0, 1)],
         denied_techniques=[],
     )
-    print(f"✅ Reward computed: {test_result['total_reward']:.3f}")
-    print(f"  Correctness: {test_result['correctness_score']:.3f}")
-    print(f"  Success: {test_result['success']}")
+    print(f"Reward computed: {test_result['total_reward']:.3f}")
+    print(f"Correctness: {test_result['correctness_score']:.3f}")
+    print(f"Success: {test_result['success']}")
 
     # Initialize trainer
-    print("\n🏋️  Initializing GRPO trainer...")
+    print("\nInitializing GRPO trainer...")
     trainer = GRPOTrainer(
         model=model,
         reward_fn=reward_fn,
@@ -122,7 +122,7 @@ def test_grpo_trainer():
         config=config,
         output_dir="./outputs/phase4_test",
     )
-    print("✅ Trainer initialized")
+    print("Trainer initialized")
 
     # Run training
     print("\n" + "="*80)
@@ -135,22 +135,22 @@ def test_grpo_trainer():
         print("\n" + "="*80)
         print("TEST RESULTS")
         print("="*80)
-        print(f"✅ Training completed successfully")
-        print(f"  Total steps: {results['total_steps']}")
-        print(f"  Final mean reward: {results['final_mean_reward']:.3f}")
-        print(f"  Final success rate: {results['final_success_rate']:.2%}")
-        print(f"  Final violation rate: {results['final_violation_rate']:.2%}")
+        print(f"Training completed successfully")
+        print(f"Total steps: {results['total_steps']}")
+        print(f"Final mean reward: {results['final_mean_reward']:.3f}")
+        print(f"Final success rate: {results['final_success_rate']:.2%}")
+        print(f"Final violation rate: {results['final_violation_rate']:.2%}")
 
         # Verify training actually happened
         if results['total_steps'] == config['training']['num_steps']:
-            print(f"\n✅ All {config['training']['num_steps']} steps completed")
+            print(f"\nAll {config['training']['num_steps']} steps completed")
             return True
         else:
-            print(f"\n❌ Expected {config['training']['num_steps']} steps, got {results['total_steps']}")
+            print(f"\nExpected {config['training']['num_steps']} steps, got {results['total_steps']}")
             return False
 
     except Exception as e:
-        print(f"\n❌ Training failed with error: {e}")
+        print(f"\nTraining failed with error: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -187,7 +187,7 @@ def test_curriculum_integration():
         round_num = batch[0]['denied_techniques']
         print(f"  Step {step}: Round constraints = {round_num}")
 
-    print("\n✅ Curriculum integration test passed")
+    print("\nCurriculum integration test passed")
     return True
 
 
@@ -208,7 +208,7 @@ def main():
             print("\n")
             results[test_name] = test_func()
         except Exception as e:
-            print(f"\n❌ {test_name} crashed: {e}")
+            print(f"\n{test_name} crashed: {e}")
             import traceback
             traceback.print_exc()
             results[test_name] = False
@@ -222,19 +222,19 @@ def main():
     total = len(results)
 
     for test_name, passed_test in results.items():
-        status = "✅ PASS" if passed_test else "❌ FAIL"
+        status = "PASS" if passed_test else "FAIL"
         print(f"{status}  {test_name}")
 
     print(f"\nTotal: {passed}/{total} tests passed")
 
     if passed == total:
-        print("\n🎉 All tests passed! Phase 4 is complete.")
+        print("\nAll tests passed! Phase 4 is complete.")
         print("\nNext steps:")
         print("  1. Create SLURM scripts for NSCC deployment (Phase 5)")
         print("  2. Test full training run with real NeoCoder data")
         return 0
     else:
-        print("\n⚠️  Some tests failed.")
+        print("\nSome tests failed.")
         return 1
 
 

@@ -259,5 +259,5 @@ def solve(nums)  # Missing colon
         print(f"  Sample {i+1}: reward={result['total_reward']:.3f}, violations={len(result['violation_result']['violations'])}")
 
     print("\n" + "="*80)
-    print("✅ All tests completed!")
+    print("Tests completed")
     print("="*80)

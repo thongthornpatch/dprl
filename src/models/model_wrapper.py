@@ -68,8 +68,8 @@ class ModelWrapper:
         # Set to eval mode initially
         self.model.eval()
 
-        print(f"✅ Model loaded successfully")
-        print(f"  Parameters: {self.count_parameters() / 1e6:.1f}M")
+        print(f"Model loaded successfully")
+        print(f"Parameters: {self.count_parameters() / 1e6:.1f}M")
 
     def count_parameters(self) -> int:
         """Count total trainable parameters."""
@@ -181,7 +181,7 @@ class ModelWrapper:
         print(f"Saving model to: {save_path}")
         self.model.save_pretrained(save_path)
         self.tokenizer.save_pretrained(save_path)
-        print(f"✅ Model saved")
+        print(f"Model saved")
 
     @classmethod
     def load(cls, load_path: str, device: str = "cpu"):
@@ -210,7 +210,7 @@ class ModelWrapper:
         wrapper.device = device
         wrapper.model_name = load_path
 
-        print(f"✅ Model loaded")
+        print(f"Model loaded")
         return wrapper
 
 
@@ -228,9 +228,9 @@ if __name__ == "__main__":
             device="cpu",
             max_length=256,
         )
-        print("✅ Model loaded successfully")
+        print("Model loaded successfully")
     except Exception as e:
-        print(f"❌ Failed to load model: {e}")
+        print(f"Failed to load model: {e}")
         exit(1)
 
     # Test generation
@@ -251,9 +251,9 @@ if __name__ == "__main__":
             print(f"\nSequence {i+1}:")
             print(seq[:100] + "..." if len(seq) > 100 else seq)
 
-        print("\n✅ Generation successful")
+        print("\nGeneration successful")
     except Exception as e:
-        print(f"❌ Generation failed: {e}")
+        print(f"Generation failed: {e}")
         import traceback
         traceback.print_exc()
 
@@ -276,10 +276,10 @@ if __name__ == "__main__":
             print(f"\nPrompt {i+1}: {prompts[i].strip()}")
             print(f"  Output: {results[0][:50]}...")
 
-        print("\n✅ Batch generation successful")
+        print("\nBatch generation successful")
     except Exception as e:
-        print(f"❌ Batch generation failed: {e}")
+        print(f"Batch generation failed: {e}")
 
     print("\n" + "="*80)
-    print("✅ All model wrapper tests completed!")
+    print("All model wrapper tests completed!")
     print("="*80)

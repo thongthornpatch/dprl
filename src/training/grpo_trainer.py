@@ -450,9 +450,9 @@ if __name__ == "__main__":
         loader = NeoCoderLoader()
         problems = loader.load()
         dataset = NeoCoderDataset(problems, config)
-        print(f"✅ Loaded {len(problems)} problems")
+        print(f"Loaded {len(problems)} problems")
     except FileNotFoundError:
-        print("⚠️  NeoCoder dataset not found, creating dummy dataset")
+        print("NeoCoder dataset not found, creating dummy dataset")
         # Create dummy dataset for testing
         class DummyProblem:
             def __init__(self):
@@ -473,17 +473,17 @@ if __name__ == "__main__":
         device=config['model']['device'],
         max_length=config['model']['max_length'],
     )
-    print(f"✅ Loaded model: {config['model']['name']}")
+    print(f"Loaded model: {config['model']['name']}")
 
-    print("\n🎯 Initializing reward function...")
+    print("\nInitializing reward function...")
     reward_fn = RewardFunction(
         correctness_weight=config['reward']['correctness_weight'],
         denial_penalty_weight=config['reward']['denial_penalty_weight'],
         timeout=config['reward']['timeout'],
     )
-    print("✅ Reward function ready")
+    print("Reward function ready")
 
-    print("\n🏋️  Initializing trainer...")
+    print("\nInitializing trainer...")
     trainer = GRPOTrainer(
         model=model,
         reward_fn=reward_fn,
@@ -491,15 +491,15 @@ if __name__ == "__main__":
         config=config,
         output_dir="./outputs/test_run",
     )
-    print("✅ Trainer ready")
+    print("Trainer ready")
 
-    print("\n🚀 Starting training (10 steps)...")
+    print("\nStarting training (10 steps)...")
     results = trainer.train()
 
     print("\n" + "="*80)
-    print("FINAL RESULTS")
+    print("RESULTS")
     print("="*80)
     for key, value in results.items():
         print(f"{key}: {value}")
 
-    print("\n✅ Test complete!")
+    print("\nTest complete!")

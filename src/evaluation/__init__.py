@@ -1,1 +1,1 @@
-"""Evaluation metrics for Pass@k and NeoGauge (Phase 7)."""
+"""Evaluation metrics for Pass@k and NeoGauge"""

@@ -276,5 +276,5 @@ if __name__ == "__main__":
     print(augmented)
 
     print("\n" + "="*80)
-    print("✅ All tests passed!")
+    print("All tests passed!")
     print("="*80)

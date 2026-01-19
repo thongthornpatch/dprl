@@ -387,5 +387,5 @@ x = 10 + 20
     print(f"Output: {repr(result['output'])}")
 
     print("\n" + "="*80)
-    print("✅ All tests completed!")
+    print("Tests completed")
     print("="*80)
