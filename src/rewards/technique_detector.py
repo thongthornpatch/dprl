@@ -345,5 +345,5 @@ def solve(nums):
     assert violations['compliant']
 
     print("\n" + "="*80)
-    print("✅ All tests passed!")
+    print("All tests passed")
     print("="*80)
