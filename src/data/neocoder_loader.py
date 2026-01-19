@@ -330,7 +330,7 @@ if __name__ == "__main__":
         loader = NeoCoderLoader()
         problems = loader.load()
 
-        print(f"\n✅ Successfully loaded {len(problems)} problems")
+        print(f"\nSuccessfully loaded {len(problems)} problems")
 
         # Show first problem
         print("\n" + "="*80)
@@ -389,13 +389,13 @@ if __name__ == "__main__":
         print(f"First problem constraints: {batch[0]['constraints']}")
 
         print("\n" + "="*80)
-        print("✅ All tests passed!")
+        print("All tests passed!")
         print("="*80)
 
     except FileNotFoundError as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\nError: {e}")
         print("\nMake sure NeoCoder dataset is downloaded.")
     except Exception as e:
-        print(f"\n❌ Unexpected error: {e}")
+        print(f"\nUnexpected error: {e}")
         import traceback
         traceback.print_exc()
