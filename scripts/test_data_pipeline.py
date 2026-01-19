@@ -306,7 +306,7 @@ def main():
     print(f"\nTotal: {passed}/{total} tests passed")
 
     if passed == total:
-        print("\nAll tests passed! Phase 2 is complete.")
+        print("\nAll tests passed")
         print("\nNext steps:")
         print("  1. Implement reward function (Phase 3)")
         print("  2. Implement GRPO training loop (Phase 4)")
