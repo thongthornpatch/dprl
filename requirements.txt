@@ -1,0 +1,40 @@
+# Core ML Libraries
+torch>=2.0.0
+transformers>=4.35.0
+accelerate>=0.25.0
+datasets>=2.14.0
+
+# RL Training Libraries
+trl>=0.7.0  # Transformer Reinforcement Learning
+peft>=0.7.0  # Parameter-Efficient Fine-Tuning (optional, for memory optimization)
+
+# Evaluation & Metrics
+scipy>=1.11.0
+scikit-learn>=1.3.0
+nltk>=3.8.0
+
+# Code Execution & Safety
+RestrictedPython>=6.0  # For safe code execution sandbox
+
+# Experiment Tracking & Logging
+wandb>=0.16.0  # Weights & Biases for experiment tracking
+tensorboard>=2.15.0
+
+# Utilities
+numpy>=1.24.0
+pandas>=2.0.0
+tqdm>=4.66.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0  # Code formatting
+flake8>=6.0.0  # Linting
+
+# Jupyter (for analysis)
+jupyter>=1.0.0
+ipykernel>=6.25.0
+matplotlib>=3.7.0
+seaborn>=0.12.0

@@ -1,0 +1,54 @@
+# Minimal configuration for local pilot test
+# Super small scale to validate the system works
+
+data:
+  source: "neocoder"
+  dataset_path: "data/neocoder"
+  num_problems: 5
+  seed: 42
+
+model:
+  name: "gpt2"  # Smallest model (124M params)
+  device: "cpu"
+  max_length: 256  # Short sequences
+  torch_dtype: "float32"
+
+training:
+  num_steps: 20  # Just 20 steps for quick test
+  batch_size: 1  # Process 1 problem at a time
+  group_size: 4  # Generate 4 solutions per problem
+  learning_rate: 1e-5
+  clip_range: 0.2
+  max_grad_norm: 1.0
+  save_every: 100  # Don't save checkpoints during test
+
+generation:
+  max_new_tokens: 100  # Short code snippets
+  temperature: 0.8
+  top_p: 0.95
+  do_sample: true
+
+reward:
+  # Reward = Correctness - (num_violations × denial_penalty_weight)
+  correctness_weight: 1.0
+  denial_penalty_weight: 0.5
+  timeout: 3
+
+curriculum:
+  enabled: true
+  warmup_steps: 10  # Start increasing constraints after 10 steps
+  max_constraints: 2  # Max 2 denied techniques
+
+dataset:
+  num_problems: 5  # Use all 5 test problems
+  shuffle: true
+
+evaluation:
+  pass_at_k: [1, 5, 10]
+  compute_neogauge: false
+  num_eval_problems: 5
+
+logging:
+  log_dir: "logs"
+  save_every: 100
+  print_every: 1

@@ -1,0 +1,94 @@
+# Configuration for LAPTOP TESTING (CPU, small model)
+# This config is designed to run on your laptop for development and testing
+
+experiment_name: "laptop_test"
+mode: "test"  # test or train
+
+# Model Configuration (SMALL for laptop)
+model:
+  name: "gpt2"  # Tiny 124M param model for testing
+  max_length: 256  # Shorter for faster testing
+  device: "cpu"
+  load_in_8bit: false
+  torch_dtype: "float32"
+
+# Dataset Configuration
+data:
+  source: "neocoder"
+  dataset_path: "data/raw/neocoder"
+  num_problems: 10  # Only use 10 problems for quick testing
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  seed: 42
+
+# Denial Prompting Configuration
+denial_prompting:
+  use_curriculum: true
+  curriculum_schedule:
+    - stage: 1
+      steps: [0, 50]
+      num_constraints: 0
+      description: "Baseline - no denial"
+    - stage: 2
+      steps: [51, 100]
+      num_constraints: 1
+      description: "Easy denial"
+    - stage: 3
+      steps: [101, 150]
+      num_constraints: 2
+      description: "Medium denial"
+  max_constraints: 5
+
+# GRPO Configuration
+training:
+  algorithm: "grpo"
+  num_training_steps: 200  # Very short for testing
+  batch_size: 2  # Small batch for laptop
+  group_size: 4  # GRPO: number of solutions per problem
+  learning_rate: 1.0e-5
+  warmup_steps: 10
+  gradient_accumulation_steps: 2
+  save_every: 50
+  eval_every: 50
+  log_every: 10
+  max_grad_norm: 1.0
+  seed: 42
+
+# Reward Function Configuration (Simplified)
+reward:
+  # Reward = Correctness - (num_violations × denial_penalty_weight)
+  correctness_weight: 1.0           # Weight for passing test cases
+  denial_penalty_weight: 0.5        # Penalty per denied technique violation
+
+  # Execution settings
+  timeout: 5  # seconds for code execution
+  max_memory: 256  # MB
+
+# Generation Configuration
+generation:
+  max_new_tokens: 256  # Short for testing
+  temperature: 0.8
+  top_p: 0.95
+  do_sample: true
+  num_return_sequences: 1
+
+# Evaluation Configuration
+evaluation:
+  pass_at_k: [1, 5, 10]
+  compute_neogauge: false  # Disable expensive metrics for testing
+  num_eval_problems: 5
+
+# Logging Configuration
+logging:
+  use_wandb: false  # Disable wandb for laptop testing
+  use_tensorboard: false
+  log_dir: "logs"
+  save_dir: "experiments"
+  verbose: true
+
+# Hardware Configuration
+hardware:
+  device: "cpu"
+  num_workers: 2
+  pin_memory: false

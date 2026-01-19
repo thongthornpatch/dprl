@@ -1,0 +1,54 @@
+# Configuration for Google Colab Testing
+# Uses free T4 GPU with small model and subset of data
+
+data:
+  source: "neocoder"
+  dataset_path: "data/neocoder"
+  num_problems: 10  # Subset of NeoCoder
+  seed: 42
+
+model:
+  name: "gpt2"  # 124M params - fits in Colab free tier
+  device: "cuda"  # Colab provides GPU
+  max_length: 512
+  torch_dtype: "float32"
+
+training:
+  num_steps: 50  # Short validation run
+  batch_size: 2  # 2 problems per step
+  group_size: 4  # 4 solutions per problem
+  learning_rate: 1e-5
+  clip_range: 0.2
+  max_grad_norm: 1.0
+  save_every: 25  # Save twice during run
+
+generation:
+  max_new_tokens: 150  # Medium-length code
+  temperature: 0.8
+  top_p: 0.95
+  do_sample: true
+
+reward:
+  # Reward = Correctness - (num_violations × denial_penalty_weight)
+  correctness_weight: 1.0
+  denial_penalty_weight: 0.5
+  timeout: 5
+
+curriculum:
+  enabled: true
+  warmup_steps: 20  # First 20 steps easy
+  max_constraints: 2  # Max 2 denied techniques
+
+dataset:
+  num_problems: 10
+  shuffle: true
+
+evaluation:
+  pass_at_k: [1, 5, 10]
+  compute_neogauge: false
+  num_eval_problems: 5
+
+logging:
+  log_dir: "logs"
+  save_every: 25
+  print_every: 1

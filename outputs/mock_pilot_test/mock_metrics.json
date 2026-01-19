@@ -1,0 +1,122 @@
+{
+  "0": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "1": {
+    "mean_reward": -0.125,
+    "mean_violations": 0.25,
+    "success_rate": 0.0,
+    "advantage_spread": 0.1875
+  },
+  "2": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "3": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "4": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "5": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "6": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "7": {
+    "mean_reward": -0.125,
+    "mean_violations": 0.25,
+    "success_rate": 0.0,
+    "advantage_spread": 0.1875
+  },
+  "8": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "9": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "10": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "11": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "12": {
+    "mean_reward": 1.0,
+    "mean_violations": 0.0,
+    "success_rate": 1.0,
+    "advantage_spread": 0.0
+  },
+  "13": {
+    "mean_reward": 1.0,
+    "mean_violations": 0.0,
+    "success_rate": 1.0,
+    "advantage_spread": 0.0
+  },
+  "14": {
+    "mean_reward": -0.375,
+    "mean_violations": 0.75,
+    "success_rate": 0.0,
+    "advantage_spread": 0.1875
+  },
+  "15": {
+    "mean_reward": 0.0,
+    "mean_violations": 0.0,
+    "success_rate": 0.0,
+    "advantage_spread": 0.0
+  },
+  "16": {
+    "mean_reward": -0.125,
+    "mean_violations": 0.25,
+    "success_rate": 0.0,
+    "advantage_spread": 0.1875
+  },
+  "17": {
+    "mean_reward": 1.0,
+    "mean_violations": 0.0,
+    "success_rate": 1.0,
+    "advantage_spread": 0.0
+  },
+  "18": {
+    "mean_reward": 0.875,
+    "mean_violations": 0.25,
+    "success_rate": 1.0,
+    "advantage_spread": 0.1875
+  },
+  "19": {
+    "mean_reward": -0.25,
+    "mean_violations": 0.5,
+    "success_rate": 0.0,
+    "advantage_spread": 0.25
+  }
+}
