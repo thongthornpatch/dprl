@@ -47,14 +47,14 @@ import transformers
 from trl import GRPOTrainer
 import RestrictedPython
 
-print('✅ PyTorch version:', torch.__version__)
-print('✅ CUDA available:', torch.cuda.is_available())
+print('PyTorch version:', torch.__version__)
+print('CUDA available:', torch.cuda.is_available())
 if torch.cuda.is_available():
-    print('✅ CUDA version:', torch.version.cuda)
-    print('✅ GPU:', torch.cuda.get_device_name(0))
-print('✅ Transformers version:', transformers.__version__)
-print('✅ TRL installed')
-print('✅ RestrictedPython installed')
+    print('CUDA version:', torch.version.cuda)
+    print('GPU:', torch.cuda.get_device_name(0))
+print('Transformers version:', transformers.__version__)
+print('TRL installed')
+print('RestrictedPython installed')
 "
 
 echo ""
