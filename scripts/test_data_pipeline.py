@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test the complete data pipeline for Phase 2.
+Test the complete data pipeline
 
 This script tests:
 1. NeoCoder dataset loading
@@ -34,13 +34,13 @@ def test_basic_loading():
         loader = NeoCoderLoader()
         problems = loader.load()
 
-        print(f"✅ Loaded {len(problems)} problems")
+        print(f"Loaded {len(problems)} problems")
 
         # Check first problem
         problem = problems[0]
-        print(f"✅ First problem ID: {problem.problem_id}")
-        print(f"✅ Number of rounds: {len(problem.rounds)}")
-        print(f"✅ Number of test cases: {len(problem.test_cases)}")
+        print(f"First problem ID: {problem.problem_id}")
+        print(f"Number of rounds: {len(problem.rounds)}")
+        print(f"Number of test cases: {len(problem.test_cases)}")
 
         # Verify structure
         assert len(problems) == 199, f"Expected 199 problems, got {len(problems)}"
@@ -50,7 +50,7 @@ def test_basic_loading():
         return True
 
     except Exception as e:
-        print(f"❌ Test failed: {e}")
+        print(f"Test failed: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -71,9 +71,9 @@ def test_train_val_test_split():
             seed=42
         )
 
-        print(f"✅ Train set: {len(train)} problems")
-        print(f"✅ Val set: {len(val)} problems")
-        print(f"✅ Test set: {len(test)} problems")
+        print(f"Train set: {len(train)} problems")
+        print(f"Val set: {len(val)} problems")
+        print(f"Test set: {len(test)} problems")
 
         total = len(train) + len(val) + len(test)
         assert total == 199, f"Split doesn't preserve total: {total}"
@@ -87,12 +87,12 @@ def test_train_val_test_split():
         assert len(train_ids & test_ids) == 0, "Train and test overlap"
         assert len(val_ids & test_ids) == 0, "Val and test overlap"
 
-        print(f"✅ No overlap between splits")
+        print(f"No overlap between splits")
 
         return True
 
     except Exception as e:
-        print(f"❌ Test failed: {e}")
+        print(f"Test failed: {e}")
         return False
 
 
@@ -118,25 +118,25 @@ def test_curriculum_dataset():
         # Test at step 50 (stage 1: 0 constraints)
         dataset.set_step(50)
         num_constraints = dataset.get_num_constraints()
-        print(f"✅ Step 50: {num_constraints} constraints (expected 0)")
+        print(f"Step 50: {num_constraints} constraints (expected 0)")
         assert num_constraints == 0, f"Expected 0 constraints at step 50"
 
         # Test at step 150 (stage 2: 1 constraint)
         dataset.set_step(150)
         num_constraints = dataset.get_num_constraints()
-        print(f"✅ Step 150: {num_constraints} constraints (expected 1)")
+        print(f"Step 150: {num_constraints} constraints (expected 1)")
         assert num_constraints == 1, f"Expected 1 constraint at step 150"
 
         # Test at step 250 (stage 3: 2 constraints)
         dataset.set_step(250)
         num_constraints = dataset.get_num_constraints()
-        print(f"✅ Step 250: {num_constraints} constraints (expected 2)")
+        print(f"Step 250: {num_constraints} constraints (expected 2)")
         assert num_constraints == 2, f"Expected 2 constraints at step 250"
 
         return True
 
     except Exception as e:
-        print(f"❌ Test failed: {e}")
+        print(f"Test failed: {e}")
         return False
 
 
@@ -161,7 +161,7 @@ def test_batch_sampling():
         # Sample a batch
         batch = dataset.sample_batch(batch_size=4)
 
-        print(f"✅ Sampled batch of {len(batch)} problems")
+        print(f"Sampled batch of {len(batch)} problems")
 
         # Check batch structure
         for i, item in enumerate(batch):
@@ -176,12 +176,12 @@ def test_batch_sampling():
             print(f"    Constraints: {item['constraints'][:2] if item['constraints'] else 'None'}...")
             print(f"    Test cases: {len(item['test_cases'])}")
 
-        print(f"✅ All batch items have correct structure")
+        print(f"All batch items have correct structure")
 
         return True
 
     except Exception as e:
-        print(f"❌ Test failed: {e}")
+        print(f"Test failed: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -201,20 +201,20 @@ def test_denial_augmentation():
 
         augmented = augmenter.augment(original_prompt, constraints)
 
-        print(f"✅ Original prompt:\n  {original_prompt}")
-        print(f"\n✅ Augmented prompt:\n{augmented}")
+        print(f"Original prompt:\n  {original_prompt}")
+        print(f"\nAugmented prompt:\n{augmented}")
 
         # Verify augmentation
         assert "DO NOT use" in augmented
         assert "for loop" in augmented
         assert original_prompt in augmented
 
-        print(f"\n✅ Augmentation successful")
+        print(f"\nAugmentation successful")
 
         return True
 
     except Exception as e:
-        print(f"❌ Test failed: {e}")
+        print(f"Test failed: {e}")
         return False
 
 
@@ -228,7 +228,7 @@ def test_config_integration():
         # Load laptop config
         config = load_config('configs/config_laptop.yaml')
 
-        print(f"✅ Loaded config: {config['experiment_name']}")
+        print(f"Loaded config: {config['experiment_name']}")
 
         # Create dataset using config
         loader = NeoCoderLoader()
@@ -238,11 +238,11 @@ def test_config_integration():
         num_problems = config['data']['num_problems']
         problems_subset = problems[:num_problems]
 
-        print(f"✅ Using {len(problems_subset)} problems (config limit: {num_problems})")
+        print(f"Using {len(problems_subset)} problems (config limit: {num_problems})")
 
         # Create curriculum from config
         curriculum = config['denial_prompting']['curriculum_schedule']
-        print(f"✅ Curriculum has {len(curriculum)} stages")
+        print(f"Curriculum has {len(curriculum)} stages")
 
         scheduler = CurriculumScheduler(curriculum)
         print(f"\nCurriculum summary:")
@@ -257,12 +257,12 @@ def test_config_integration():
             seed=config['data']['seed']
         )
 
-        print(f"\n✅ Dataset created with {len(dataset)} problems")
+        print(f"\nDataset created with {len(dataset)} problems")
 
         return True
 
     except Exception as e:
-        print(f"❌ Test failed: {e}")
+        print(f"Test failed: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -288,7 +288,7 @@ def main():
         try:
             results[test_name] = test_func()
         except Exception as e:
-            print(f"\n❌ {test_name} crashed: {e}")
+            print(f"\n{test_name} crashed: {e}")
             results[test_name] = False
 
     # Print summary
@@ -300,19 +300,19 @@ def main():
     total = len(results)
 
     for test_name, passed_test in results.items():
-        status = "✅ PASS" if passed_test else "❌ FAIL"
+        status = "PASS" if passed_test else "FAIL"
         print(f"{status}  {test_name}")
 
     print(f"\nTotal: {passed}/{total} tests passed")
 
     if passed == total:
-        print("\n🎉 All tests passed! Phase 2 is complete.")
+        print("\nAll tests passed! Phase 2 is complete.")
         print("\nNext steps:")
         print("  1. Implement reward function (Phase 3)")
         print("  2. Implement GRPO training loop (Phase 4)")
         return 0
     else:
-        print("\n⚠️  Some tests failed. Please fix the issues above.")
+        print("\nSome tests failed. Please fix the issues above.")
         return 1
 
 
